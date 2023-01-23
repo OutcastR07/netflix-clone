@@ -1,51 +1,46 @@
-import { ArrowBackIosOutlined, ArrowForwardIosOutlined } from '@mui/icons-material'
-import { useRef, useState } from 'react'
-import ListItem from '../listItem/ListItem'
-import './List.scss'
+import {
+    ArrowBackIosOutlined,
+    ArrowForwardIosOutlined,
+} from "@mui/icons-material";
+import { useState } from "react";
+import ListItem from "../listItem/ListItem";
+import "./List.scss";
 
-const List = () => {
+export default function List() {
+    const [currentIndex, setCurrentIndex] = useState(0);
+    const [isMoved, setIsMoved] = useState(false);
 
-    const [isMoved, setIsMoved] = useState(false)
-    const [slideNumber, setSlideNumber] = useState(0)
-
-    const listRef = useRef()
-
-    const handleClick = (direction) => {
+    const handlePrevClick = () => {
         setIsMoved(true)
-        let distance = listRef.current.getBoundingClientRect().x - 50
-        if (direction === 'left' && slideNumber > 0) {
-            setSlideNumber(slideNumber - 1)
-            listRef.current.style.transform = `translateX(${230 + distance}px)`
-        }
-        else if (direction === 'right' && slideNumber < 5) {
-            setSlideNumber(slideNumber + 1)
-            listRef.current.style.transform = `translateX(${distance - 230}px)`
-        }
-    }
+        if (currentIndex <= 0) return;
+        setCurrentIndex(currentIndex - 1);
+    };
+
+    const handleNextClick = () => {
+        setIsMoved(true)
+        if (currentIndex >= 5) return;
+        setCurrentIndex(currentIndex + 1);
+    };
 
     return (
-        <div className='list'>
-            <span className='listTitle'>Continue to watch</span>
+        <div className="list">
+            <span className="listTitle">Continue to watch</span>
             <div className="wrapper">
-                <ArrowBackIosOutlined className='sliderArrow left' onClick={() => handleClick("left")}
+                <ArrowBackIosOutlined
+                    className="sliderArrow left"
+                    onClick={() => handlePrevClick()}
                     style={{ display: !isMoved && "none" }}
                 />
-                <div className="container" ref={listRef}>
-                    <ListItem index={0} />
-                    <ListItem index={1} />
-                    <ListItem index={2} />
-                    <ListItem index={3} />
-                    <ListItem index={4} />
-                    <ListItem index={5} />
-                    <ListItem index={6} />
-                    <ListItem index={7} />
-                    <ListItem index={8} />
-                    <ListItem index={9} />
+                <div className="container" style={{ transform: `translateX(-${currentIndex * 225}px)` }}>
+                    {Array(10).fill(null).map((_, i) => (
+                        <ListItem index={i} key={i} currentIndex={currentIndex} />
+                    ))}
                 </div>
-                <ArrowForwardIosOutlined className='sliderArrow right' onClick={() => handleClick("right")} />
+                <ArrowForwardIosOutlined
+                    className="sliderArrow right"
+                    onClick={() => handleNextClick()}
+                />
             </div>
         </div>
-    )
+    );
 }
-
-export default List

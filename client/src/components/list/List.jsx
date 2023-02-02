@@ -6,7 +6,7 @@ import { useState } from "react";
 import ListItem from "../listItem/ListItem";
 import "./List.scss";
 
-export default function List() {
+export default function List({ list }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const [isMoved, setIsMoved] = useState(false);
 
@@ -24,7 +24,7 @@ export default function List() {
 
     return (
         <div className="list">
-            <span className="listTitle">Continue to watch</span>
+            <span className="listTitle">{list.title}</span>
             <div className="wrapper">
                 <ArrowBackIosOutlined
                     className="sliderArrow left"
@@ -32,8 +32,11 @@ export default function List() {
                     style={{ display: !isMoved && "none" }}
                 />
                 <div className="container" style={{ transform: `translateX(-${currentIndex * 225}px)` }}>
-                    {Array(10).fill(null).map((_, i) => (
+                    {/* {Array(10).fill(null).map((_, i) => (
                         <ListItem index={i} key={i} currentIndex={currentIndex} />
+                    ))} */}
+                    {list.content.map((item, i) => (
+                        <ListItem index={i} key={i} item={item} />
                     ))}
                 </div>
                 <ArrowForwardIosOutlined

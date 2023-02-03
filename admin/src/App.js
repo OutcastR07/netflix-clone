@@ -24,13 +24,17 @@ function App() {
         {user ? <Sidebar /> : null}
         <Routes>
           <Route path="/login" element={user ? <Navigate to="/" /> : <Login />} />
-          <Route path="/" exact={true} element={<Home />} />
-          <Route path="/users" element={<UserList />} />
-          <Route path="/user/:userId" element={<User />} />
-          <Route path="/newUser" element={<NewUser />} />
-          <Route path="/movies" element={<ProductList />} />
-          <Route path="/product/:productId" element={<Product />} />
-          <Route path="/newproduct" element={<NewProduct />} />
+          {user &&
+            <>
+              <Route path="/" exact={true} element={<Home />} />
+              <Route path="/users" element={<UserList />} />
+              <Route path="/user/:userId" element={<User />} />
+              <Route path="/newUser" element={<NewUser />} />
+              <Route path="/movies" element={<ProductList />} />
+              <Route path="/product/:productId" element={<Product />} />
+              <Route path="/newproduct" element={<NewProduct />} />
+            </>
+          }
         </Routes>
       </div>
     </Router>

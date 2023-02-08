@@ -32,7 +32,7 @@ const Home = () => {
         const getStats = async () => {
             try {
                 const res = await axios.get("/users/stats", {
-                    headers: { token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDgxNzQ5ZTZkNWZiZmQyMTdkYmU1MCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTMxNjY3MCwiZXhwIjoxNjc1NzQ4NjcwfQ.bjZ0TNFK_ItFOm8KlVbVCGNz8vyPAm5Cx3GD-faIaXQ" },
+                    headers: { token: "Bearer" + JSON.parse(localStorage.getItem("user")).accessToken, },
                 });
                 const statsList = res.data.sort(function (a, b) {
                     return a._id - b._id;
@@ -55,7 +55,7 @@ const Home = () => {
             <FeaturedInfo />
             <Charts data={userStats} title="User Analytics" grid dataKey="New User" />
             <div className="homeWidgets">
-                <WidgetSm />
+                {/* <WidgetSm /> */}
                 <WidgetLg />
             </div>
         </div>

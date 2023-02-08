@@ -3,15 +3,14 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import './WidgetSm.css'
 
-const WidgetSm = () => {
-
-    const [newUsers, setNewUsers] = useState([])
+export default function WidgetSm() {
+    const [newUsers, setNewUsers] = useState([]);
 
     useEffect(() => {
         const getNewUsers = async () => {
             try {
                 const res = await axios.get("/users?new=true", {
-                    headers: { token: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzZDgxNzQ5ZTZkNWZiZmQyMTdkYmU1MCIsImlzQWRtaW4iOnRydWUsImlhdCI6MTY3NTMxNjY3MCwiZXhwIjoxNjc1NzQ4NjcwfQ.bjZ0TNFK_ItFOm8KlVbVCGNz8vyPAm5Cx3GD-faIaXQ" },
+                    headers: { token: "Bearer" + JSON.parse(localStorage.getItem("user")).accessToken, },
                 });
                 setNewUsers(res.data);
             } catch (err) {
@@ -22,14 +21,21 @@ const WidgetSm = () => {
     }, []);
 
     return (
-        <div className='widgetSm'>
-            <span className="widgetSmTitle">New Members</span>
+        <div className="widgetSm">
+            <span className="widgetSmTitle">New Join Members</span>
             <ul className="widgetSmList">
-                {newUsers.map(user => (
+                {newUsers.map((user) => (
                     <li className="widgetSmListItem">
-                        <img src={user.profilePic || "https://th.bing.com/th/id/OIP.4l745LKOzMIKiNgqGO6cLQHaHa?w=200&h=200&c=7&r=0&o=5&dpr=1.5&pid=1.7"} alt="" className="widgetSmImg" />
+                        <img
+                            src={
+                                user.profilePic ||
+                                "https://pbs.twimg.com/media/D8tCa48VsAA4lxn.jpg"
+                            }
+                            alt=""
+                            className="widgetSmImg"
+                        />
                         <div className="widgetSmUser">
-                            <span className="widgetSmUserName">{user.username}</span>
+                            <span className="widgetSmUsername">{user.username}</span>
                         </div>
                         <button className="widgetSmButton">
                             <Visibility className="widgetSmIcon" />
@@ -39,7 +45,5 @@ const WidgetSm = () => {
                 ))}
             </ul>
         </div>
-    )
+    );
 }
-
-export default WidgetSm

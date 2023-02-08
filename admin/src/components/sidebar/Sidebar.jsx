@@ -1,4 +1,4 @@
-import { AttachMoney, BarChart, ChatOutlined, EmailOutlined, FeedbackOutlined, LineStyle, Movie, PersonOutline, Report, TrendingUp, WorkOutline } from '@mui/icons-material'
+import { BarChart, ChatOutlined, EmailOutlined, FeedbackOutlined, LineStyle, Movie, PersonOutline, Report, TrendingUp, WorkOutline, List } from '@mui/icons-material'
 import TimelineIcon from '@mui/icons-material/Timeline';
 import { Link } from 'react-router-dom';
 import './Sidebar.css'
@@ -45,10 +45,12 @@ const Sidebar = () => {
                                 Movies
                             </li>
                         </Link>
-                        <li className="sidebarListItem">
-                            <AttachMoney className='sidebarIcon' />
-                            Transactions
-                        </li>
+                        <Link to="/lists" className='link'>
+                            <li className="sidebarListItem">
+                                <List className='sidebarIcon' />
+                                Lists
+                            </li>
+                        </Link>
                         <li className="sidebarListItem">
                             <BarChart className='sidebarIcon' />
                             Reports

@@ -1,9 +1,8 @@
 import Charts from '../../components/charts/Charts'
 import FeaturedInfo from '../../components/featuredInfo/FeaturedInfo'
 import './Home.css'
-// import { userData } from '../../dummyData'
 import WidgetLg from '../../components/widgetLg/WidgetLg'
-import WidgetSm from '../../components/widgetSm/WidgetSm'
+// import WidgetSm from '../../components/widgetSm/WidgetSm'
 import { useMemo, useState, useEffect } from 'react'
 import axios from "axios"
 
